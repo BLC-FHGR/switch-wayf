@@ -1716,7 +1716,8 @@ function runImproveDropDown() {
 	writeHTML('</div>');
 
 	// Now output HTML all at once
-	document.write(wayf_html);
+    wayf_element.innerHTML = wayf_html;
+	// document.write(wayf_html);
 
 	if (wayf_use_improved_drop_down_list){
 		// Check if jQuery is alread loaded or version is older that this version's
