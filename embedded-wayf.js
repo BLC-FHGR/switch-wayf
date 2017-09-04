@@ -1002,6 +1002,7 @@ function getOptionHTML(entityID){
 
 	return content;
 }
+
 function initjQuery(jq) {
     // Extra security check, because jquery cannot set our local $
     // Sometimes $ does not even exist.
@@ -1009,7 +1010,6 @@ function initjQuery(jq) {
         $ = jq;
 
         loadImprovedDropDown();
-        improvedDropDownLoaded = true;
     }
 }
 
@@ -1058,6 +1058,8 @@ function loadImprovedDropDown(){
 
 function runImproveDropDown() {
     // Convert select element into improved drop down list
+    improvedDropDownLoaded = true;
+
     $("#user_idp:enabled").improveDropDown({
         iconPath: wayf_dropdown_icon_url,
         noMatchesText: 'Keine Organisation gefunden für diesen Suchtext',
