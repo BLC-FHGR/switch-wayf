@@ -500,6 +500,20 @@ var wayf_idps = {
 } };
 var wayf_other_fed_idps = {};
 
+// make code deferrable
+var wayf_element = document.getElementById("wayf-widget");
+
+if (!wayf_element) {
+    var scriptTags = document.getElementsByTagName('script');
+    var scriptTag = scriptTags[scriptTags.length - 1];
+    var parentTag = scriptTag.parentNode;
+
+    var tmp_element = document.createElement("div");
+    tmp_element.setAttribute("id", "wayf-widget");
+    parentTag.appendChild(tmp_element),
+    wayf_element = tmp_element;
+}
+
 // Functions
 function redirectTo(url){
 	// Make sure the redirect always is being done in parent window
