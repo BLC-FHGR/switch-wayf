@@ -64,7 +64,7 @@ var wayf_use_disco_feed = global.wayf_use_disco_feed;
 var wayf_discofeed_url = global.wayf_discofeed_url;
 
 // Internal variables
-var wayf_improved_dropdown_url = '//mdl-tst.htwchur.ch/improvedDropDown.js';
+var wayf_improved_dropdown_url = 'https://mdl-tst.htwchur.ch/improvedDropDown.js';
 var wayf_jquery_url = 'https://wayf.switch.ch/SWITCHaai/js/jquery.js';
 var wayf_dropdown_icon_url = 'https://wayf.switch.ch/SWITCHaai/images/drop_icon.png';
 
@@ -1002,6 +1002,16 @@ function getOptionHTML(entityID){
 
 	return content;
 }
+function initjQuery(jq) {
+    // Extra security check, because jquery cannot set our local $
+    // Sometimes $ does not even exist.
+    if (typeof jq === "function") {
+        $ = jq;
+
+        loadImprovedDropDown();
+        improvedDropDownLoaded = true;
+    }
+}
 
 function loadJQuery() {
 
@@ -1011,13 +1021,13 @@ function loadJQuery() {
 	script.src = wayf_jquery_url;
 	script.type = 'text/javascript';
 	script.onload = function() {
-        // Extra security check, because jquery cannot set our local $
-        // Sometimes $ does not even exist.
-        if (typeof jQuery === "function") {
-            $ = jQuery;
+        // ensure that jquery is really loaded without any amd loader interfering
+        if (typeof define === "function" && define.amd) {
+            require(["jquery"], initjQuery);
         }
-		loadImprovedDropDown();
-		improvedDropDownLoaded = true;
+        else {
+            initjQuery(jQuery);
+        }
 	};
 	head.appendChild(script);
 
@@ -1028,6 +1038,8 @@ function loadJQuery() {
 		}
 	});
 }
+
+
 
 function loadImprovedDropDown(){
 	// Load CSS
