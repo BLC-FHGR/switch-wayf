@@ -501,6 +501,7 @@ var wayf_idps = {
 var wayf_other_fed_idps = {};
 
 // make code deferrable
+// NOTE: This code MUST not rely on jquery, because at this point jquery may not be available, yet. 
 var wayf_element = document.getElementById("wayf-widget");
 
 if (!wayf_element) {
